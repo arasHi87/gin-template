@@ -5,6 +5,19 @@ import (
 	"github.com/arashi87/gin-template/pkg/setting"
 )
 
+// @title gin template
+// @version 1.0
+// @description a simple RESTful API service implement by gin
+// @termsOfService http://swagger.io/terms/
+
+// @contact.name arashi87
+// @contact.url http://www.swagger.io/support
+// @contact.email support@swagger.io
+
+// @license.name Apache 2.0
+// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @host 0.0.0.0:8080
 func main() {
 	router := router.InitRouter()
 	router.Run(setting.CONFIG.Address + ":" + setting.CONFIG.Port)
