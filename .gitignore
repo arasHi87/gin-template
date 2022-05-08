@@ -1,3 +1,10 @@
+# general
 .env
 app
 docs
+.vscode
+
+# macos
+.DS_Store
+.AppleDouble
+.LSOverride
