@@ -17,7 +17,8 @@ import (
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host 0.0.0.0:8080
+// @host localhost:8080
+// schemes http
 func main() {
 	router := router.InitRouter()
 	router.Run(setting.CONFIG.Address + ":" + setting.CONFIG.Port)
