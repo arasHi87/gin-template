@@ -20,6 +20,7 @@ import (
 // @host localhost:8080
 // schemes http
 func main() {
+	setting.InitDatabase()
 	router := router.InitRouter()
 	router.Run(setting.CONFIG.Address + ":" + setting.CONFIG.Port)
 }
