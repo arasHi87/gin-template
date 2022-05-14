@@ -1,6 +1,7 @@
 package model
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/arashi87/gin-template/pkg/common"
@@ -15,6 +16,19 @@ type UserModel struct {
 }
 
 func (model *UserModel) Create(ctx *gin.Context) error {
+	var user UserModel
+
+	// check if user info has already exist
+	record := common.DB.Where("name = ? or email = ?", model.Name, model.Email).Limit(1).Find(&user)
+	if err := record.Error; err != nil {
+		return err
+	}
+
+	if record.RowsAffected > 0 {
+		return errors.New("user has already exist")
+	}
+
+	// create user
 	if result := common.DB.Create(model); result.Error != nil {
 		return result.Error
 	}
