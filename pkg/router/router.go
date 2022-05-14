@@ -21,6 +21,7 @@ func InitRouter() *gin.Engine {
 	user := router.Group("/user")
 	{
 		user.POST("", controller.CreateUser)
+		user.GET("/:uid", controller.RetriveUser)
 	}
 
 	return router
