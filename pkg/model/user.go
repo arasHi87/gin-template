@@ -14,8 +14,8 @@ type UserModel struct {
 	Password string `gorm:"column:password;not null" json:"password"`
 }
 
-func (user *UserModel) Create(ctx *gin.Context) error {
-	if result := common.DB.Create(user); result.Error != nil {
+func (model *UserModel) Create(ctx *gin.Context) error {
+	if result := common.DB.Create(model); result.Error != nil {
 		return result.Error
 	}
 	fmt.Println("Create user")
@@ -23,8 +23,8 @@ func (user *UserModel) Create(ctx *gin.Context) error {
 	return nil
 }
 
-func (user *UserModel) Validate(ctx *gin.Context) error {
-	if err := ctx.BindJSON(user); err != nil {
+func (model *UserModel) Validate(ctx *gin.Context) error {
+	if err := ctx.BindJSON(model); err != nil {
 		return err
 	}
 
