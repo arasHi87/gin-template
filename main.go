@@ -1,8 +1,8 @@
 package main
 
 import (
+	setting "github.com/arashi87/gin-template/pkg/common"
 	"github.com/arashi87/gin-template/pkg/router"
-	"github.com/arashi87/gin-template/pkg/setting"
 )
 
 // @title gin template
@@ -20,7 +20,7 @@ import (
 // @host localhost:8080
 // schemes http
 func main() {
-	setting.InitDatabase()
+	common.InitDatabase()
 	router := router.InitRouter()
 	router.Run(setting.CONFIG.Address + ":" + setting.CONFIG.Port)
 }
