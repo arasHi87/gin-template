@@ -3,7 +3,6 @@ package common
 import (
 	"fmt"
 
-	"github.com/arashi87/gin-template/pkg/model"
 	"github.com/arashi87/gin-template/pkg/setting"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -28,13 +27,5 @@ func InitDatabase() *gorm.DB {
 
 	DB = db
 
-	// migrate models
-	DBAutoMigrate()
-
 	return db
-}
-
-func DBAutoMigrate() {
-	DB.AutoMigrate(&model.UserModel{})
-	fmt.Println("Auto migrate all models")
 }
