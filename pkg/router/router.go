@@ -17,5 +17,11 @@ func InitRouter() *gin.Engine {
 		router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	}
 
+	/* User router */
+	user := router.Group("/user")
+	{
+		user.POST("", controller.CreateUser)
+	}
+
 	return router
 }
