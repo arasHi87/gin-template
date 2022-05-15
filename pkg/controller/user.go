@@ -27,7 +27,7 @@ func CreateUser(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"msg": "ok"})
 }
 
-func RetriveUser(ctx *gin.Context) {
+func RetrieveUser(ctx *gin.Context) {
 	var user model.UserModel
 	record := common.DB.Select("id", "name", "email").Where("id = ?", ctx.Param("uid")).Limit(1).Find(&user)
 
