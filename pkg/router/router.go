@@ -15,6 +15,7 @@ func InitRouter() *gin.Engine {
 	{
 		router.GET("/health", controller.GetHealth)
 		router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+		router.POST("/auth", controller.AuthLogin)
 	}
 
 	/* User router */
