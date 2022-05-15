@@ -15,3 +15,11 @@ DB_NAME=
 DB_USERNAME=
 DB_PASSWORD=
 DB_TIMEZONE=
+
+#######################
+#       JWT ENV       #
+#######################
+
+JWT_EXPIRE=
+JWT_SECRET=
+JWT_ISSUER=

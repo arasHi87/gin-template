@@ -1,6 +1,9 @@
 package setting
 
-import "os"
+import (
+	"os"
+	"strconv"
+)
 
 /*
 Service configuration
@@ -15,6 +18,9 @@ type Config struct {
 	DBUsername string
 	DBPassword string
 	DBTimezone string
+	JWTExpire  int
+	JWTSecret  string
+	JWTIssuer  string
 }
 
 /*
@@ -31,6 +37,14 @@ func getEnvStr(key string, defaultVal string) string {
 	return val
 }
 
+func getEnvInt(key string, defaultVal int) int {
+	val, err := strconv.Atoi(os.Getenv(key))
+	if err != nil {
+		return defaultVal
+	}
+	return val
+}
+
 var CONFIG = Config{
 	Port:       getEnvStr("APP_PORT", "8080"),
 	Address:    getEnvStr("APP_ADDRESS", "0.0.0.0"),
@@ -40,4 +54,7 @@ var CONFIG = Config{
 	DBUsername: getEnvStr("DB_USERNAME", "m3ow87"),
 	DBPassword: getEnvStr("DB_PASSWORD", "m3ow87"),
 	DBTimezone: getEnvStr("DB_TIMEZONE", "Asia/Taipei"),
+	JWTExpire:  getEnvInt("JWT_EXPIRE", 2),
+	JWTSecret:  getEnvStr("JWT_SECRET", "DoUWantToMeowMeowMeow"),
+	JWTIssuer:  getEnvStr("JWTIssuer", "m3ow87"),
 }
