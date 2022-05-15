@@ -11,9 +11,18 @@ import (
 func InitRouter() *gin.Engine {
 	router := gin.Default()
 
-	router.GET("/health", controller.GetHealth)
+	/* General router */
+	{
+		router.GET("/health", controller.GetHealth)
+		router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	}
 
-	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	/* User router */
+	user := router.Group("/user")
+	{
+		user.POST("", controller.CreateUser)
+		user.GET("/:uid", controller.RetrieveUser)
+	}
 
 	return router
 }

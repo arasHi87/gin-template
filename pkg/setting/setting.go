@@ -7,8 +7,14 @@ Service configuration
 */
 
 type Config struct {
-	Port    string
-	Address string
+	Port       string
+	Address    string
+	DBHost     string
+	DBPort     string
+	DBName     string
+	DBUsername string
+	DBPassword string
+	DBTimezone string
 }
 
 /*
@@ -26,6 +32,12 @@ func getEnvStr(key string, defaultVal string) string {
 }
 
 var CONFIG = Config{
-	Port:    getEnvStr("APP_PORT", "8080"),
-	Address: getEnvStr("APP_ADDRESS", "0.0.0.0"),
+	Port:       getEnvStr("APP_PORT", "8080"),
+	Address:    getEnvStr("APP_ADDRESS", "0.0.0.0"),
+	DBHost:     getEnvStr("DB_HOST", "localhost"),
+	DBPort:     getEnvStr("DB_PORT", "5432"),
+	DBName:     getEnvStr("DB_NAME", "gintemplate"),
+	DBUsername: getEnvStr("DB_USERNAME", "m3ow87"),
+	DBPassword: getEnvStr("DB_PASSWORD", "m3ow87"),
+	DBTimezone: getEnvStr("DB_TIMEZONE", "Asia/Taipei"),
 }

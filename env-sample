@@ -4,3 +4,14 @@
 
 APP_ADDRESS=:0.0.0.0
 APP_PORT=:8000
+
+#######################
+#    DATABASE  ENV    #
+#######################
+
+DB_HOST=
+DB_PORT=
+DB_NAME=
+DB_USERNAME=
+DB_PASSWORD=
+DB_TIMEZONE=
