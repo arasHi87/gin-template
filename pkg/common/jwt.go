@@ -9,13 +9,13 @@ import (
 )
 
 type CustomClaims struct {
-	ID    uint   `json:"id"`
+	ID    int    `json:"id"`
 	Name  string `json:"name"`
 	Email string `json:"email"`
 	jwt.StandardClaims
 }
 
-func GenToken(name, email string, id uint) (string, error) {
+func GenToken(name, email string, id int) (string, error) {
 	// Get token expire time and jwt secret from env
 	expireTime := time.Hour * time.Duration(setting.CONFIG.JWTExpire)
 	secret := []byte(setting.CONFIG.JWTSecret)

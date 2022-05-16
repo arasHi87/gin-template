@@ -9,7 +9,7 @@ import (
 )
 
 type UserModel struct {
-	ID       uint   `gorm:"primaryKey"`
+	ID       int    `gorm:"primaryKey"`
 	Name     string `gorm:"column:name;not null" json:"name" binding:"required,max=15"`
 	Email    string `gorm:"column:email;not null" json:"email" binding:"required,email"`
 	Password string `gorm:"column:password;not null" json:"password"`
