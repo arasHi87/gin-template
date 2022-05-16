@@ -3,6 +3,7 @@ package model
 import (
 	"errors"
 	"fmt"
+	"strconv"
 
 	"github.com/arashi87/gin-template/pkg/common"
 	"github.com/gin-gonic/gin"
@@ -39,6 +40,22 @@ func (model *UserModel) Create(ctx *gin.Context) error {
 
 func (model *UserModel) Validate(ctx *gin.Context) error {
 	if err := ctx.BindJSON(model); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (model *UserModel) Update(ctx *gin.Context) error {
+	user := ctx.MustGet("user").(UserModel)
+
+	// check if user is self
+	if uid, err := strconv.Atoi(ctx.Param("uid")); uid != user.ID || err != nil {
+		return errors.New("permission denied")
+	}
+
+	record := common.DB.Model(&user).Updates(model)
+	if err := record.Error; err != nil {
 		return err
 	}
 

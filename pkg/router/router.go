@@ -24,6 +24,7 @@ func InitRouter() *gin.Engine {
 	user := router.Group("/user", middleware.AuthMiddleware())
 	{
 		user.GET("/:uid", controller.RetrieveUser)
+		user.PUT("/:uid", controller.UpdateUser)
 	}
 
 	return router

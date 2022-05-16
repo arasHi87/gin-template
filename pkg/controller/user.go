@@ -45,3 +45,21 @@ func RetrieveUser(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"msg": "ok",
 		"data": map[string]string{"id": strconv.Itoa(int(user.ID)), "name": user.Name, "email": user.Email}})
 }
+
+func UpdateUser(ctx *gin.Context) {
+	var user model.UserModel
+
+	// validate request data
+	if err := user.Validate(ctx); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
+		return
+	}
+
+	// update user
+	if err := user.Update(ctx); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{"msg": "ok"})
+}
