@@ -54,6 +54,23 @@ func (model *UserModel) Update(ctx *gin.Context) error {
 	return nil
 }
 
+func (model *UserModel) Delete(ctx *gin.Context) error {
+	user := ctx.MustGet("user").(UserModel)
+
+	// check if user is self
+	if uid, err := strconv.Atoi(ctx.Param("uid")); uid != user.ID || err != nil {
+		return errors.New("permission denied")
+	}
+
+	// delete user
+	record := common.DB.Delete(&UserModel{}, ctx.Param("uid"))
+	if err := record.Error; err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (model *UserModel) Validate(ctx *gin.Context) error {
 	if err := ctx.BindJSON(model); err != nil {
 		return err

@@ -63,3 +63,21 @@ func UpdateUser(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, gin.H{"msg": "ok"})
 }
+
+func DeleteUser(ctx *gin.Context) {
+	// extract uid from param
+	uid, err := strconv.Atoi(ctx.Param("uid"))
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
+		return
+	}
+
+	// delete user
+	user := model.UserModel{ID: uid}
+	if err := user.Delete(ctx); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{"msg": "ok"})
+}

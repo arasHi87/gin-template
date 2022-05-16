@@ -25,6 +25,7 @@ func InitRouter() *gin.Engine {
 	{
 		user.GET("/:uid", controller.RetrieveUser)
 		user.PUT("/:uid", controller.UpdateUser)
+		user.DELETE("/:uid", controller.DeleteUser)
 	}
 
 	return router
