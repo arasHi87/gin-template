@@ -13,6 +13,17 @@ type AuthInfo struct {
 	Password string `json:"password" binding:"required"`
 }
 
+// @Summary User authorization
+// @Version 1.0
+// @Description User login
+// @Tags auth
+// @Accept application/json
+// @Produce application/json
+// @Param data body AuthInfo true "request body"
+// @Success 200 {string} json "{"msg":"ok"}"
+// @Failure 400 {string} json "{"msg":"error reason"}"
+// @Failure 403 {string} json "{"msg":"user name or password wrong"}"
+// @Router /auth [post]
 func AuthLogin(ctx *gin.Context) {
 	var authInfo AuthInfo
 	var user model.UserModel
@@ -24,10 +35,15 @@ func AuthLogin(ctx *gin.Context) {
 	}
 
 	// check if user exist
-	result := common.DB.Where(&model.UserModel{Name: authInfo.Name, Password: authInfo.Password}).Find(&user)
-
+	result := common.DB.Where(&model.UserModel{Name: authInfo.Name}).Find(&user)
 	if result.Error != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"msg": result.Error})
+		ctx.JSON(http.StatusServiceUnavailable, gin.H{"msg": result.Error.Error()})
+		return
+	}
+
+	// compare password
+	if common.CheckPassword(authInfo.Password, user.Password) {
+		ctx.JSON(http.StatusBadRequest, gin.H{"msg": "user name or password not match"})
 		return
 	}
 

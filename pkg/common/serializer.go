@@ -1,11 +1,13 @@
 package common
 
 import (
-	"gorm.io/gorm"
+	"github.com/gin-gonic/gin"
 )
 
 type Serializer interface {
-	Create() *gorm.DB
-	Retrive() *gorm.DB
-	Validate() error
+	Create(ctx *gin.Context) error
+	Retrive(ctx *gin.Context) error
+	Update(ctx *gin.Context) error
+	Delete(ctx *gin.Context) error
+	Validate(ctx *gin.Context) error
 }
