@@ -13,6 +13,17 @@ type AuthInfo struct {
 	Password string `json:"password" binding:"required"`
 }
 
+// @Summary User authorization
+// @Version 1.0
+// @Description User login
+// @Tags auth
+// @Accept application/json
+// @Produce application/json
+// @Param data body AuthInfo true "request body"
+// @Success 200 {string} json "{"msg":"ok"}"
+// @Failure 400 {string} json "{"msg":"error reason"}"
+// @Failure 403 {string} json "{"msg":"user name or password wrong"}"
+// @Router /auth [post]
 func AuthLogin(ctx *gin.Context) {
 	var authInfo AuthInfo
 	var user model.UserModel
