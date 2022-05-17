@@ -19,6 +19,13 @@ type UserModel struct {
 func (model *UserModel) Create(ctx *gin.Context) error {
 	var user UserModel
 
+	// hash password
+	password, err := common.HashPassword(model.Password)
+	if err != nil {
+		return err
+	}
+	model.Password = string(password)
+
 	// check if user info has already exist
 	record := common.DB.Where("name = ? or email = ?", model.Name, model.Email).Limit(1).Find(&user)
 	if err := record.Error; err != nil {
@@ -44,6 +51,15 @@ func (model *UserModel) Update(ctx *gin.Context) error {
 	// check if user is self
 	if uid, err := strconv.Atoi(ctx.Param("uid")); uid != user.ID || err != nil {
 		return errors.New("permission denied")
+	}
+
+	// check is password need hash
+	if model.Password != "" {
+		password, err := common.HashPassword(model.Password)
+		if err != nil {
+			return err
+		}
+		model.Password = string(password)
 	}
 
 	record := common.DB.Model(&user).Updates(model)

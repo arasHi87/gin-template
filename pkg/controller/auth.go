@@ -35,10 +35,15 @@ func AuthLogin(ctx *gin.Context) {
 	}
 
 	// check if user exist
-	result := common.DB.Where(&model.UserModel{Name: authInfo.Name, Password: authInfo.Password}).Find(&user)
-
+	result := common.DB.Where(&model.UserModel{Name: authInfo.Name}).Find(&user)
 	if result.Error != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"msg": result.Error})
+		ctx.JSON(http.StatusServiceUnavailable, gin.H{"msg": result.Error.Error()})
+		return
+	}
+
+	// compare password
+	if common.CheckPassword(authInfo.Password, user.Password) {
+		ctx.JSON(http.StatusBadRequest, gin.H{"msg": "user name or password not match"})
 		return
 	}
 
