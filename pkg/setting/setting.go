@@ -21,6 +21,9 @@ type Config struct {
 	JWTExpire  int
 	JWTSecret  string
 	JWTIssuer  string
+	LogPath    string
+	LogExpire  int
+	LogRotate  int
 }
 
 /*
@@ -57,4 +60,7 @@ var CONFIG = Config{
 	JWTExpire:  getEnvInt("JWT_EXPIRE", 2),
 	JWTSecret:  getEnvStr("JWT_SECRET", "DoUWantToMeowMeowMeow"),
 	JWTIssuer:  getEnvStr("JWTIssuer", "m3ow87"),
+	LogPath:    getEnvStr("LOG_PATH", "/tmp/gin/gin-template.log"),
+	LogExpire:  getEnvInt("LOG_EXPIRE", 24),
+	LogRotate:  getEnvInt("LOG_ROTATE", 1),
 }
