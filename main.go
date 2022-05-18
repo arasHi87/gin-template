@@ -29,8 +29,9 @@ func DBAutoMigrate() {
 // @host localhost:8080
 // schemes http
 func main() {
-	// init database connection
+	// init
 	common.InitDatabase()
+	common.InitLogger()
 
 	// migrate models
 	DBAutoMigrate()
