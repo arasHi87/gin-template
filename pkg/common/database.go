@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/arashi87/gin-template/pkg/setting"
+	"github.com/sirupsen/logrus"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -22,7 +23,10 @@ func InitDatabase() *gorm.DB {
 	// connect to database
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
-		fmt.Println("Init DB error with ", err)
+		Logger.WithFields(logrus.Fields{
+			"type": "connect db error",
+		}).Error(err.Error())
+		return nil
 	}
 
 	DB = db

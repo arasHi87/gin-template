@@ -18,6 +18,6 @@ func LoggerMiddleware() gin.HandlerFunc {
 			"request_uri":    ctx.Request.RequestURI,
 			"status_code":    ctx.Writer.Status(),
 			"client_ip":      ctx.ClientIP(),
-		}).Info()
+		}).Info("request body")
 	}
 }

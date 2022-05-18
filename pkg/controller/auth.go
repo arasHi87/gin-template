@@ -6,6 +6,7 @@ import (
 	"github.com/arashi87/gin-template/pkg/common"
 	"github.com/arashi87/gin-template/pkg/model"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
 type AuthInfo struct {
@@ -37,6 +38,9 @@ func AuthLogin(ctx *gin.Context) {
 	// check if user exist
 	result := common.DB.Where(&model.UserModel{Name: authInfo.Name}).Find(&user)
 	if result.Error != nil {
+		common.Logger.WithFields(logrus.Fields{
+			"type": "user auth error",
+		}).Error(result.Error.Error())
 		ctx.JSON(http.StatusServiceUnavailable, gin.H{"msg": result.Error.Error()})
 		return
 	}
@@ -55,6 +59,9 @@ func AuthLogin(ctx *gin.Context) {
 	// user exist, generate jwt token
 	token, err := common.GenToken(user.Name, user.Email, user.ID)
 	if err != nil {
+		common.Logger.WithFields(logrus.Fields{
+			"type": "user auth error",
+		}).Error(result.Error.Error())
 		ctx.JSON(http.StatusBadRequest, gin.H{"msg": result.Error})
 		return
 	}
