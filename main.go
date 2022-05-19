@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/arashi87/gin-template/pkg/common"
 	"github.com/arashi87/gin-template/pkg/model"
 	"github.com/arashi87/gin-template/pkg/router"
@@ -11,7 +9,7 @@ import (
 
 func DBAutoMigrate() {
 	common.DB.AutoMigrate(&model.UserModel{})
-	fmt.Println("Auto migrate all models")
+	common.Logger.Info("Auto migrate database")
 }
 
 // @title gin template
@@ -29,8 +27,9 @@ func DBAutoMigrate() {
 // @host localhost:8080
 // schemes http
 func main() {
-	// init database connection
+	// init
 	common.InitDatabase()
+	common.InitLogger()
 
 	// migrate models
 	DBAutoMigrate()

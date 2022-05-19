@@ -2,7 +2,6 @@ package model
 
 import (
 	"errors"
-	"fmt"
 	"strconv"
 
 	"github.com/arashi87/gin-template/pkg/common"
@@ -40,7 +39,6 @@ func (model *UserModel) Create(ctx *gin.Context) error {
 	if result := common.DB.Create(model); result.Error != nil {
 		return result.Error
 	}
-	fmt.Println("Create user")
 
 	return nil
 }

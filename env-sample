@@ -23,3 +23,11 @@ DB_TIMEZONE=
 JWT_EXPIRE=
 JWT_SECRET=
 JWT_ISSUER=
+
+#######################
+#       LOG ENV       #
+#######################
+
+LOG_PATH=
+LOG_EXPIRE=
+LOG_ROTATE=

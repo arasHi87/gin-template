@@ -7,6 +7,7 @@ import (
 	"github.com/arashi87/gin-template/pkg/common"
 	"github.com/arashi87/gin-template/pkg/model"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
 // @Summary User create
@@ -30,6 +31,9 @@ func CreateUser(ctx *gin.Context) {
 
 	// create user
 	if err := user.Create(ctx); err != nil {
+		common.Logger.WithFields(logrus.Fields{
+			"type": "create user error",
+		}).Error(err.Error())
 		ctx.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
 		return
 	}
@@ -53,6 +57,9 @@ func RetrieveUser(ctx *gin.Context) {
 	record := common.DB.Select("id", "name", "email").Where("id = ?", ctx.Param("uid")).Limit(1).Find(&user)
 
 	if err := record.Error; err != nil {
+		common.Logger.WithFields(logrus.Fields{
+			"type": "retrive user error",
+		}).Error(err.Error())
 		ctx.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
 		return
 	}
@@ -89,6 +96,9 @@ func UpdateUser(ctx *gin.Context) {
 
 	// update user
 	if err := user.Update(ctx); err != nil {
+		common.Logger.WithFields(logrus.Fields{
+			"type": "update user error",
+		}).Error(err.Error())
 		ctx.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
 		return
 	}
@@ -118,6 +128,9 @@ func DeleteUser(ctx *gin.Context) {
 	// delete user
 	user := model.UserModel{ID: uid}
 	if err := user.Delete(ctx); err != nil {
+		common.Logger.WithFields(logrus.Fields{
+			"type": "delete user error",
+		}).Error(err.Error())
 		ctx.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
 		return
 	}

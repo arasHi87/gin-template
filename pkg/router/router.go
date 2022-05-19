@@ -11,6 +11,7 @@ import (
 
 func InitRouter() *gin.Engine {
 	router := gin.Default()
+	router.Use(middleware.LoggerMiddleware())
 
 	/* General router */
 	{
